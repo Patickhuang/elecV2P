@@ -126,6 +126,23 @@ services:
       - "/elecv2p/efss:/usr/local/app/efss"
 ```
 
+### 方法四：N1小钢炮（推荐）
+docker run -dit \
+--restart=always \
+--name elecv2p \
+-e TZ=Asia/Shanghai \
+-p 8100:80 -p 8101:8001 -p 8102:8002 \
+-v /opt/elecv2p/JSFile:/usr/local/app/script/JSFile \
+-v /opt/elecv2p/Store:/usr/local/app/script/Store \
+-v /opt/elecv2p/rootCA:/usr/local/app/rootCA \
+-v /opt/elecv2p/Lists:/usr/local/app/script/Lists \
+-v /opt/elecv2p/Shell:/usr/local/app/script/Shell \
+-v /opt/elecv2p/efss:/opt/elecV2P/efss \
+-e ENABLE_HANGUP=true \
+-e ENABLE_WEB_PANEL=true \
+--hostname elecv2p \
+elecv2/elecv2p:arm64
+
 - *具体使用的镜像 image、端口映射和 volumes 目录，根据个人情况进行调整*
 - *部分用户反映，在某些设备上需要调整 version 的版本才能启动。如果启动出现问题，可以尝试把文件开头的 version: '3.7' 更改为 version: '3.3'。*
 
